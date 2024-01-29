@@ -1,0 +1,27 @@
+/* color palette from <https://github.com/vuejs/theme> */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (prefers-color-scheme: dark) {
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-950;
+    @apply min-h-screen;
+  }
+}
+
+body {
+  color: white;
+}

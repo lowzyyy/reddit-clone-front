@@ -1,0 +1,5 @@
+@import './base.css';
+.redborder:invalid {
+  border-width: 1px;
+  border-color: red;
+}
