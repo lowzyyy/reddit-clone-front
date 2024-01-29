@@ -1,6 +1,6 @@
 <template>
   <div v-if="data === undefined">
-    <div class="mx-auto mt-10 flex w-[600px] items-center justify-center">
+    <div class="mx-auto mt-10 flex w-full items-center justify-center md:w-[600px]">
       <SpinnerStatus class="h-24 w-24 fill-teal-700" />
     </div>
   </div>
@@ -89,7 +89,7 @@
     :data="data.data"
     :refetch="refetchData"
   />
-  <div class="mx-auto mt-2 flex max-w-[94%] gap-2 md:hidden">
+  <div v-if="data?.data" class="mx-auto mt-2 flex max-w-[94%] gap-2 md:hidden">
     <button
       @click="showFeed = true"
       class="rounded-md p-1"
