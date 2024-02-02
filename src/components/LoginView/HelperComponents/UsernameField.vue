@@ -7,7 +7,8 @@
       type="text"
       id="username"
       name="username"
-      minlength="5"
+      minlength="3"
+      maxlength="12"
       class="rounded-md bg-teal-50 p-1 font-semibold text-black outline-none"
     />
   </div>

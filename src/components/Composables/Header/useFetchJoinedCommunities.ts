@@ -31,7 +31,9 @@ const useFetchJoinedCommunities = () => {
     if (!authStore.isLoggingIn.value) getAllData()
   })
 
-  const refetch = () => getAllData()
+  const refetch = () => {
+    getAllData()
+  }
 
   return { data, refetch }
 }

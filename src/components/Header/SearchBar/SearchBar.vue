@@ -1,5 +1,5 @@
 <template>
-  <div class="z-50 flex items-center text-sm">
+  <div class="z-50 flex items-center text-base">
     <PhMagnifyingGlass size="20" class="pointer-events-none absolute left-2" />
     <input
       @input="onSearchInput"

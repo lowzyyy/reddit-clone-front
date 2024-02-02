@@ -6,23 +6,20 @@
       class="mb-3 block cursor-pointer text-cyan-400 hover:text-cyan-300 hover:underline"
       >Back to all comments</RouterLink
     >
-    <label
-      v-if="data && data.length > 0"
-      for="sortType"
-      class="rounded-l-md bg-emerald-700 py-1 pl-2"
-      >Sort by :</label
-    >
-    <select
-      v-if="data && data.length > 0"
-      v-model="sortType"
-      name="sortType"
-      id="sortType"
-      class="cursor-pointer rounded-r-md bg-emerald-700 py-1 pl-2 pr-1 text-base text-slate-200"
-    >
-      <option class="hover:bg-yellow-200" value="top">Top</option>
-      <option value="newest">Newest</option>
-      <option value="oldest">Oldest</option>
-    </select>
+    <div class="inline-block rounded-md bg-emerald-700 pl-2 text-sm sm:text-base">
+      <label v-if="data && data.length > 0" for="sortType" class="pr-1">Sort by </label>
+      <select
+        v-if="data && data.length > 0"
+        v-model="sortType"
+        name="sortType"
+        id="sortType"
+        class="cursor-pointer rounded-r-md bg-emerald-600 p-1 font-semibold text-slate-200"
+      >
+        <option class="hover:bg-yellow-200" value="top">Top</option>
+        <option value="newest">Latest</option>
+        <option value="oldest">Oldest</option>
+      </select>
+    </div>
     <div v-if="data && data?.length > 0">
       <div v-for="comment in data" :key="comment.id" class="mt-4 list-inside">
         <CommentItem :data="comment" />

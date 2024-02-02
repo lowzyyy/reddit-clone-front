@@ -3,8 +3,8 @@
     ref="results"
     class="absolute left-0 top-10 flex w-full flex-col rounded-md border border-teal-500 bg-teal-700 xs:border-teal-600"
   >
-    <p v-if="!joinedCommunity" class="flex justify-center fill-teal-700 p-2 text-center">
-      <SpinnerStatus />
+    <p v-if="!joinedCommunity" class="flex justify-center p-2 text-center">
+      <SpinnerStatus class="fill-teal-500" />
     </p>
     <p v-else-if="joinedCommunity && joinedCommunity.length === 0" class="p-2 text-sm">
       No joined communities!

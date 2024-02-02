@@ -107,12 +107,14 @@ const emit = defineEmits([
   'modalClicked',
   'setBannerHeight',
   'update:imageSource',
-  'update:imagePosition'
+  'update:imagePosition',
+  'update:isUploading'
 ])
 const { imageSource } = defineProps<{
   currentBannerSize: string
   imageSource: string
   imagePosition: string
+  isUploading: boolean
 }>()
 const inputRef = ref<HTMLInputElement>()
 
@@ -148,6 +150,7 @@ const onChangeHeight = async (event: any) => {
 const onChangeImage = async () => {
   try {
     errorMsg.value = ''
+    emit('update:isUploading', true)
     if (inputRef.value) {
       const img = inputRef.value.files
       if (img?.length) {
@@ -164,7 +167,7 @@ const onChangeImage = async () => {
             }
           }
         )
-
+        emit('update:isUploading', false)
         const newImgUrl = `${BACKEND_API}/getCommunityImage?term=${
           route.params.communityName
         }&type=banner&${rndNumber()}`
@@ -173,6 +176,7 @@ const onChangeImage = async () => {
       }
     }
   } catch (error: any) {
+    emit('update:isUploading', false)
     if (error instanceof AxiosError) errorMsg.value = error.response?.data.message
     else errorMsg.value = error.message
   }

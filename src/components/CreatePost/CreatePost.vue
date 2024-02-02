@@ -6,7 +6,7 @@
   >
     <div
       @click.stop=""
-      class="absolute top-40 w-full rounded-md border border-slate-200 bg-slate-900 p-4 sm:w-[600px]"
+      class="absolute top-28 w-full rounded-md border border-slate-200 bg-slate-900 p-4 sm:w-[600px] md:top-40"
     >
       <h2 class="text-slate-100">Create post for {{ name }}</h2>
       <input

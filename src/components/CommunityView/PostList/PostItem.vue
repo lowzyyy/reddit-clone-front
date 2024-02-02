@@ -37,7 +37,7 @@
         name: 'postview with comments',
         params: { communityName: postData.community_id, postId: postData.id }
       }"
-      class="flex w-full flex-col gap-2 px-1 py-2"
+      class="flex w-full flex-col gap-2 px-1 py-2 pl-2"
     >
       <h5 class="flex gap-2 text-xs text-teal-100 md:text-sm">
         <RouterLink

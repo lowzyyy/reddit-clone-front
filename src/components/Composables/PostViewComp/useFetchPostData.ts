@@ -1,4 +1,4 @@
-import { ref, type ComputedRef } from 'vue'
+import { ref, type ComputedRef, watch } from 'vue'
 import type { TPost } from '../CommunityViewComp/useFetchCommunityPosts'
 import axios, { AxiosError } from 'axios'
 import { BACKEND_API } from '@/helpers/globalHelpers'
@@ -25,7 +25,11 @@ const useFetchPostData = (postId: ComputedRef<string>) => {
         if (error instanceof AxiosError) data.value = error.response?.data
       })
   }
-  getAllData()
+  if (!authStore.isLoggingIn.value) getAllData()
+
+  watch([authStore.isLoggingIn], () => {
+    if (!authStore.isLoggingIn.value) getAllData()
+  })
 
   const refetch = () => getAllData()
 

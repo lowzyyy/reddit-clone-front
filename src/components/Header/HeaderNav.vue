@@ -1,6 +1,6 @@
 <template>
   <header class="h-12 lg:h-14">
-    <nav v-if="!showMobileSearch" class="relative flex items-center justify-between p-2 md:px-6">
+    <nav v-show="!showMobileSearch" class="relative flex items-center justify-between p-2 md:px-6">
       <div class="flex items-center gap-4">
         <RouterLink :to="{ name: 'home' }" class="flex cursor-pointer items-center gap-2">
           <PhRedditLogo size="30" weight="duotone" />
@@ -8,6 +8,11 @@
         </RouterLink>
         <div
           ref="joinedButtonRef"
+          @click="
+            () => {
+              if (!showCommunities) refetch()
+            }
+          "
           v-if="authStore.authenticated"
           class="relative flex w-[120px] cursor-pointer items-center justify-between rounded-md border border-white px-2 py-1 md:w-[250px]"
         >
@@ -42,16 +47,30 @@
               weight="bold"
               class="text-teal-900"
           /></span>
-          <span class="hidden xs:block">{{ authStore.user.username }}</span>
+          <span class="hidden max-w-[150px] xs:block">{{ authStore.user.username }}</span>
 
           <PhCaretDown v-if="!showProfileSettings" size="16" class="" />
           <PhCaretUp v-else size="16" class="" />
           <ProfileSettings v-if="showProfileSettings" v-model:image-source="avatarSource" />
         </div>
-        <RouterLink v-if="!authStore.authenticated" :to="{ name: 'login' }">Log in</RouterLink>
+        <RouterLink
+          v-if="!authStore.authenticated"
+          :to="{ name: 'login' }"
+          class="rounded-md bg-teal-900 p-1 transition-colors hover:bg-teal-500 md:px-2 md:py-1"
+          >Sign in</RouterLink
+        >
+        <RouterLink
+          v-if="!authStore.authenticated"
+          :to="{ name: 'signup' }"
+          class="rounded-md bg-teal-700 p-1 transition-colors hover:bg-teal-600 md:px-2 md:py-1"
+          >Register</RouterLink
+        >
       </div>
     </nav>
-    <nav v-else class="relative flex h-full items-center gap-5 pr-2 md:justify-center">
+    <nav
+      v-show="showMobileSearch"
+      class="relative flex h-full items-center gap-5 pr-2 md:justify-center"
+    >
       <PhArrowLeft size="25" weight="bold" @click="showMobileSearch = false" />
       <SearchBar ref="mobileSearchRef" class="relative w-full md:w-[50%]" />
     </nav>
@@ -99,15 +118,11 @@ const { data: joinedCommunities, refetch } = useFetchJoinedCommunities()
 
 const authenticatedToken = computed(() => authStore.user.token)
 watch(authenticatedToken, () => {
-  if (authenticatedToken.value !== '') refetch()
   avatarSource.value = `${BACKEND_API}/users/${authStore.user.id}`
 })
-// watch(route, () => (showMobileSearch.value = false))
+watch(route, () => (showMobileSearch.value = false))
 
 const onOutsideClickJoined = (e: any) => {
-  // referesh joined list on click
-  if (joinedButtonRef.value) if (joinedButtonRef.value === e.target) refetch()
-
   if (
     !joinedResultsRef.value?.results.contains(e.target) &&
     !joinedButtonRef.value?.contains(e.target)

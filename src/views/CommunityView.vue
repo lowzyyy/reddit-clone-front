@@ -17,10 +17,11 @@
     class="relative left-0 z-20 flex w-full flex-col items-center justify-center bg-cyan-700 bg-cover"
     :style="{
       height: `${isMobile ? parseInt(bannerHeight) / 2 + 'px' : `${bannerHeight}`}`,
-      backgroundImage: `url(${bannerSource})`,
+      backgroundImage: `url(${isUploadingBanner ? '' : `${bannerSource}`})`,
       backgroundPosition: `center ${bannerPositionY}%`
     }"
   >
+    <SpinnerStatus v-if="isUploadingBanner" class="fill-green-600 sm:h-9 sm:w-9" />
     <span
       @click="showEditBanner = !showEditBanner"
       v-if="data.isOwner"
@@ -32,6 +33,7 @@
       v-if="showEditBanner"
       v-model:image-source="bannerSource"
       v-model:image-position="bannerPositionY"
+      v-model:is-uploading="isUploadingBanner"
       :current-banner-size="data.data.bannerHeight"
       @modal-clicked="
         () => {
@@ -51,10 +53,11 @@
       <CommunityIcon :is-community-owner="data.isOwner" />
       <div class="flex flex-col items-start justify-between py-2">
         <span
-          class="max-w-[105px] overflow-hidden text-base font-semibold md:max-w-none md:text-3xl"
+          class="max-w-[105px] overflow-hidden text-base font-semibold md:max-w-[350px] md:text-3xl"
           >{{ community }}</span
         >
-        <span class="max-w-[105px] overflow-hidden text-xs md:max-w-none md:text-sm"
+        <span
+          class="max-w-[105px] overflow-hidden whitespace-nowrap text-xs md:max-w-[300px] md:text-sm"
           >r/{{ community }}</span
         >
       </div>
@@ -107,7 +110,7 @@
   </div>
   <div
     v-if="data?.data"
-    class="mx-auto mt-2 flex max-w-[94%] items-start gap-4 border border-none border-white bg-slate-950 md:mt-6 md:flex lg:max-w-[60%] lg:justify-between 3xl:max-w-[65%]"
+    class="mx-auto mt-2 flex max-w-[94%] items-start gap-4 border border-none border-white bg-inherit md:mt-6 md:flex lg:max-w-[60%] lg:justify-between 3xl:max-w-[65%]"
   >
     <CommunityInfo v-if="!showFeed" :data="data.data" class="w-full" />
     <PostList v-if="postsData?.data && showFeed" :data="postsData.data" type="subreddit" />
@@ -152,6 +155,7 @@ const showEditBanner = ref(false)
 const showEdit = ref(false)
 const isJoined = ref(false)
 const showCreatePost = ref(false)
+const isUploadingBanner = ref(false)
 
 const showFeed = ref(true)
 

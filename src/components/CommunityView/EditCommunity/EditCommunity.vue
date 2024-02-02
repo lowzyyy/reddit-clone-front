@@ -5,7 +5,7 @@
   >
     <div
       @click.stop=""
-      class="absolute top-40 mx-auto w-full rounded-md border border-white bg-slate-900 p-4 sm:w-[600px]"
+      class="absolute top-28 mx-auto w-full rounded-md border border-white bg-slate-900 p-4 sm:w-[600px] md:top-40"
     >
       <span class="text-lg font-semibold">r/{{ data.name }}</span>
       <span> community settings</span>
